@@ -61,33 +61,4 @@ LED → GPIO Pin (Output)
 
 Camera Module → CSI port
 
-3. Clone the Repository
 
-git clone https://github.com/your-username/Fire_Detection_System.git
-cd Fire_Detection_System
-
-4. Run the Fire Detection Script
-
-python3 fire_detection.py
-
-How It Works
-
-The Raspberry Pi continuously monitors the flame sensor, temperature sensor, and smoke sensor.
-
-If a fire is detected:
-
-The buzzer and LED alert users.
-
-A notification is sent via email/SMS.
-
-The camera captures an image (if integrated).
-
-The data is sent to the cloud for remote monitoring (if enabled).
-
-Future Enhancements
-
-Integration with IoT platforms for real-time data monitoring.
-
-AI-based smoke and fire recognition using computer vision.
-
-Mobile app support for remote notifications.
