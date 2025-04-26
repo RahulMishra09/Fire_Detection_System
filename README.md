@@ -1,93 +1,106 @@
-Fire Detection System using Raspberry Pi
+# Fire Detection System using Raspberry Pi
 
-Overview
+## Overview
 
-The Fire Detection System is a real-time monitoring system that detects fire and sends alerts using a Raspberry Pi and a flame sensor. This system is designed for early fire detection in homes, offices, and industrial settings to prevent major hazards.
+The Fire Detection System is a real-time monitoring setup that detects fire using a camera module connected to a Raspberry Pi.  
+It captures video frames, analyzes them for fire presence, estimates the fire intensity, and sends an email alert if fire is detected.  
+This system is designed for early fire warning in homes, offices, and industrial settings.
 
-Features
+---
 
-Real-time fire detection using a flame sensor.
+## Features
 
-Alerts via buzzer, LED, and email/SMS notifications.
+- Real-time fire detection using a camera and computer vision
+- Fire intensity estimation
+- Automatic email notifications on fire detection
+- Easy setup on any Raspberry Pi with a camera
 
-Camera integration for image capture on detection.
+---
 
-Cloud integration for remote monitoring.
+## Components Required
 
-Temperature and Smoke sensor integration for enhanced accuracy.
+- Raspberry Pi (any model with camera support, e.g., Raspberry Pi 4)
+- Raspberry Pi Camera Module (or compatible USB camera)
+- Power supply for Raspberry Pi
+- Internet connection (WiFi or Ethernet)
 
-Components Required
+---
 
-Raspberry Pi (any model with GPIO support)
+## Installation and Setup
 
-Flame Sensor (IR-based or UV-based)
+### 1. Install Dependencies
 
-Temperature Sensor (DHT11/DHT22 or MLX90614)
+Make sure your Raspberry Pi is updated and install the required Python libraries:
 
-Smoke Sensor (MQ-2/MQ-7)
-
-Camera Module (optional)
-
-Buzzer and LED
-
-Resistors and connecting wires
-
-Installation and Setup
-
-1. Install Dependencies
-
-Ensure your Raspberry Pi is up to date and install the required Python libraries:
-
+```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install python3-pip
-pip3 install RPi.GPIO
+pip3 install opencv-python
+pip3 install numpy
 pip3 install smtplib
-pip3 install picamera
-pip3 install requests
+```
 
-2. Hardware Connections
+> **Note**: Also enable the camera interface on your Pi by running:
+> ```bash
+> sudo raspi-config
+> ```
+> Go to **Interface Options** → **Camera** → **Enable**.
 
-Connect the components to the Raspberry Pi GPIO pins:
+---
 
-Flame Sensor → GPIO Pin (Input)
+### 2. Clone the Repository
 
-Temperature Sensor → GPIO Pin (Input)
-
-Smoke Sensor → GPIO Pin (Input)
-
-Buzzer → GPIO Pin (Output)
-
-LED → GPIO Pin (Output)
-
-Camera Module → CSI port
-
-3. Clone the Repository
-
-git clone https://github.com/your-username/Fire_Detection_System.git
+```bash
+git clone https://github.com/RahulMishra09/Fire_Detection_System.git
 cd Fire_Detection_System
+```
 
-4. Run the Fire Detection Script
+---
 
+### 3. Run the Fire Detection Script
+
+```bash
 python3 fire_detection.py
+```
 
-How It Works
+---
 
-The Raspberry Pi continuously monitors the flame sensor, temperature sensor, and smoke sensor.
+## How It Works
 
-If a fire is detected:
+- The Raspberry Pi continuously captures frames from the camera.
+- Using image processing (color detection in OpenCV), it identifies areas that resemble fire (typically bright orange, red, and yellow hues).
+- If fire is detected:
+  - The system calculates the **fire intensity** based on the size of the detected fire region.
+  - An **email alert** is sent to the configured recipient, including details about the fire intensity.
+- The system runs continuously until manually stopped.
 
-The buzzer and LED alert users.
+---
 
-A notification is sent via email/SMS.
+## Fire Detection Method
 
-The camera captures an image (if integrated).
+- Detect fire-like colors using HSV color space filtering.
+- Find contours (blobs) of fire regions.
+- Calculate the area of the largest fire blob to estimate intensity.
 
-The data is sent to the cloud for remote monitoring (if enabled).
+---
 
-Future Enhancements
+## Future Enhancements
 
-Integration with IoT platforms for real-time data monitoring.
+- Attach an image of the fire in the email alert
+- SMS alert integration
+- Cloud dashboard for monitoring multiple locations
+- Voice alert system using speakers
 
-AI-based smoke and fire recognition using computer vision.
+---
 
-Mobile app support for remote notifications.
+## License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## Important Notes
+
+- This project is intended for educational and prototype purposes.
+- It should not replace certified fire detection and suppression systems.
+
